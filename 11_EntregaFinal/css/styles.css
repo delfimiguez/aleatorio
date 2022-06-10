@@ -1,0 +1,62 @@
+*{
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+.border{
+    border: 1px solid #ef0000;
+}
+
+body, html {
+    background-image: url(/img/LandingScreen.png);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100%;
+}
+
+.gif {
+    text-align: left!important;
+}
+
+.textProperties {
+    color: black;
+    font-weight: 200;
+    padding: 0.5rem!important;
+}
+
+.titleProperties {
+    color: #C36BFF;
+    text-transform: uppercase;
+}
+
+.bgColorButton {
+    background-color: #C36BFF !important;
+    color: white !important;
+}
+
+.tipografiaBotones {
+    font-family:noka, sans-serif !important;
+    font-weight: 600 !important;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.bgColorButtonGanaste {
+    background-color: #FFC49C !important;
+    color: white !important;
+}
+
+.titlePropertiesGanaste {
+    color: #FFC49C;
+    text-transform: uppercase;
+}
+
+.bgColorButtonPerdiste {
+    background-color: #6BB2FF !important;
+    color: white !important;
+}
+
+.titlePropertiesPerdiste {
+    color: #6BB2FF;
+    text-transform: uppercase;
+}
