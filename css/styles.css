@@ -1,17 +1,15 @@
-*{
-    font-family: 'Roboto', sans-serif;
-    color: white;
-}
 .border{
     border: 1px solid #ef0000;
 }
 
 body, html {
-    background-image: url(/img/LandingScreen.png);
+    background-image: url(../img/LandingScreen.png);
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     height: 100%;
+    color: rgb(255, 255, 255);
+    font-family: 'Roboto', sans-serif;
 }
 
 .gif {
@@ -39,6 +37,7 @@ body, html {
     font-weight: 600 !important;
     font-style: normal;
     text-transform: uppercase;
+    color: rgb(255, 255, 255);
 }
 
 .bgColorButtonGanaste {
@@ -56,7 +55,31 @@ body, html {
     color: white !important;
 }
 
+#idPista {
+    color: white;
+}
+
 .titlePropertiesPerdiste {
     color: #6BB2FF;
     text-transform: uppercase;
+}
+
+#correcto {
+    background-color: #b8ff33 !important;
+    font-family: noka, sans-serif !important;
+    font-weight: 600 !important;
+    font-style: normal;
+    text-transform: uppercase;
+    border-radius: 0em !important;
+    color: black !important;
+}
+
+#incorrecto {
+    background-color: #FD0000 !important;
+    font-family: noka, sans-serif !important;
+    font-weight: 600 !important;
+    font-style: normal;
+    text-transform: uppercase;
+    border-radius: 0em !important;
+    color: white !important;
 }

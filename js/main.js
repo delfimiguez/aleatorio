@@ -29,12 +29,12 @@ bienvenida();
 
 
 //Funciones
-function correrPagina (){
+function correrPagina (){ 
     tirarArtista();
     landing();
 }
 
-function landing(){
+function landing(){ //funcion que muestra pantalla de bienvenida 
     document.body.style.backgroundImage = "url('./img/Instrucciones.png')";
     instruccionesDelJuego.innerHTML = `<div id="instrucciones" class="card text-center position-absolute top-50 start-50 translate-middle" style="width: 20rem;">
   <div class="card-body p-10">
@@ -47,13 +47,12 @@ function landing(){
     let boton = document.getElementById("btnPrincipal");
     boton.addEventListener('click', function(){
         correrPagina();
-        console.log("hola")
         mostrarJuego();
         cambiarFondo(randArtistaId);
     });
 }
 
-function getPistaSpotify(disco){
+function getPistaSpotify(disco){ // funcion que trae la pista consultando el dato en una API
     let objetoId;
     const options = {
       method: 'GET',
@@ -65,9 +64,7 @@ function getPistaSpotify(disco){
     fetch('https://spotify23.p.rapidapi.com/search/?q=' + disco + '&type=albums&offset=0&limit=1&numberOfTopResults=5', options)
       .then(res => res.json())
       .then(data => {objetoId = data.albums.items[0].data.uri;
-        console.log(objetoId);
         objetoId = objetoId.split(":");
-        console.log(objetoId[2]);
         if(objetoId != null && objetoId != ""){
           fetch('https://spotify23.p.rapidapi.com/album_tracks/?id=' + objetoId[2] + '&offset=0&limit=300', options)
             .then(response => response.json())
@@ -83,7 +80,7 @@ function getPistaSpotify(disco){
       .catch(err => console.error(err));
 }
 
-function bienvenida(){
+function bienvenida(){ // funcion que muestra la primer pantalla que pide tu nombre
     let botonComenzar = document.getElementById("botonComenzar");
     botonComenzar.addEventListener('click', function(){
         nombreJugador = document.getElementById("nombreJugador").value;
@@ -96,7 +93,7 @@ function esconderBienvenida (){
     pantallaBienvenida.remove();
 }
 
-function mostrarJuego(){;
+function mostrarJuego(){; //funcion que muestra el juego: la portada del album, el input y valida y corrige el dato
     document.getElementById("main").appendChild(juego);
     esconderInstrucciones();
     let botonSiguiente = document.getElementById("botonSiguiente");
@@ -106,7 +103,6 @@ function mostrarJuego(){;
         cambiarFondo(randArtistaId);});
     let botonPista = document.getElementById("btnPopOver");
     botonPista.addEventListener('click', function(){
-        console.log("Pista");
         getPistaSpotify(artistas[randArtistaId].nombreAlbum); //GET a la api de spotify para que con el nombre del disco me traiga las canciones y hago que muestre la primera
     });
     let botonReiniciar = document.getElementById("botonReiniciar");
@@ -125,7 +121,7 @@ function esconderInstrucciones (){
     instruccionesDelJuego.remove();
 }
 
-function tirarArtista (){
+function tirarArtista (){ //funcion que genera un numero random y lo guarda para asegurarse que no se repita el artista que ya salio
     if(numeroGuardado == null || numeroGuardado.length == 0){
         randArtistaId = Math.floor(Math.random()*artistas.length);
         randArtista = artistas[randArtistaId];
@@ -142,12 +138,10 @@ function tirarArtista (){
         numeroGuardado.push(randArtistaId);
         localStorage.setItem("artistasJugadosJSON", JSON.stringify(numeroGuardado));
     }
-    console.log(numeroGuardado);
 }
 
-function validarDato (){
+function validarDato (){ //funcion que chequea que el dato ingresado sea correcto o no
     let ultimoNumero = numeroGuardado.slice((numeroGuardado.length) - 1);
-    console.log(ultimoNumero);
     let datoIngresado = document.getElementById("datoIngresado");
     randArtista = artistas[ultimoNumero];
     if(datoIngresado.value.toLowerCase() == (randArtista.nombreArtista).toLowerCase()){
@@ -158,10 +152,9 @@ function validarDato (){
         respuestaIncorrecta();
         datoIngresado.value = "";           //Vacia el input para el siguiente artista
     }
-    console.log(contadorCorrectos);
 }
 
-function evaluarGanaste() {
+function evaluarGanaste() { //funcion que verifica contando las respuestas correctas, si ya ganaste el juego o no
     if(contadorCorrectos > 6){
         let pantallaGanaste = document.createElement("div");
         pantallaGanaste.innerHTML = `<div id="instrucciones" class="border-0 card text-center position-absolute top-50 start-50 translate-middle" style="width: 20rem;">
@@ -173,7 +166,6 @@ function evaluarGanaste() {
         </div>
       </div>`
         document.getElementById("main").appendChild(pantallaGanaste);
-        console.log("Ganaste. Respuestas correctas: " + contadorCorrectos);
         esconderJuego();
         let botonEmpezarDeNuevo = document.getElementById("btnReiniciar");
         botonEmpezarDeNuevo.addEventListener('click', function(){
@@ -205,7 +197,7 @@ function evaluarGanaste() {
     }
 }
 
-function cambiarFondo(){
+function cambiarFondo(){ //funcion que cambia la fachada de la pagina cada vez que se tira un nuevo artista
     let imagenPortadaDiv = document.getElementById("imagenPortada");
     if(contadorCorrectos > 6){
         document.body.style.backgroundImage = "url('./img/Ganaste.png')";
@@ -221,58 +213,65 @@ function cambiarFondo(){
     }
 }
 
-function corregir(){
+function corregir(){ //corrige el dato a traves de la validacion y de corroborar si gano o no
     validarDato();
     evaluarGanaste();
     let pista = document.getElementById("idPista");
     pista != null && pista.remove();
 }
 
-function pista (cancion){
+function pista (cancion){ //funcion de la pista
     let pista = document.createElement("div");
-    pista.setAttribute("id","idPista");
     if(pista.childElementCount == 0){
-        pista.innerHTML = `<div class="alert alert-light" role="alert">
-                            El nombre del disco es: ${artistas[randArtistaId].nombreAlbum}<br>
-                            El nombre de la primera cancion es: ${cancion}
+        pista.innerHTML = `<div id="idPista" class="alert alert-light lh-1 bg-transparent mt-1" role="alert">
+                            <small>El nombre del album es: <strong>${artistas[randArtistaId].nombreAlbum}</strong> <br>
+                            La 1º cancion es: <strong> ${cancion}</strong> </small>
                         </div>`;
         document.getElementById("popOver").appendChild(pista);
     }
 }
 
 
-//Libreria
+//Toast
+
+let toastCorrecto = document.createElement("div");
+toastCorrecto.innerHTML = `<div id="correcto" class="toast align-items-center text-bg-success border-0 position-fixed end-0" style="width: 100%;" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="d-flex">
+  <div class="toast-body">
+    ¡Tu respuesta fue correcta! - Llevas ${contadorCorrectos} respuestas correctas
+  </div>
+  <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+</div>
+</div>`
+document.getElementById("main").appendChild(toastCorrecto);
+
+let toastIncorrecto = document.createElement("div");
+toastIncorrecto.innerHTML = `<div id="incorrecto" class="toast align-items-center text-bg-danger border-0 position-fixed end-0 " style="width: 100%; role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body"> 
+      ¡Tu respuesta fue incorrecta! - Llevas ${contadorCorrectos} respuestas correctas
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>`
+document.getElementById("main").appendChild(toastIncorrecto);
+
+
+var option = {
+    animation : true,
+    delay : 2000,
+};
+
 
 function respuestaCorrecta(){
-    Toastify({
-        text: "¡Tu respuesta es correcta! - ¡Tu respuesta es correcta! - ¡Tu respuesta es correcta! - ¡Tu respuesta es correcta!",
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "#C7FF5E",
-        },
-        onClick: function(){} // Callback after click
-      }).showToast();
+    var toastHTMLElement = document.getElementById("correcto");
+    var toastElement = new bootstrap.Toast(toastHTMLElement, option)
+    toastElement.show();
 }
 
+
 function respuestaIncorrecta(){
-    Toastify({
-        text: "¡Tu respuesta es incorrecta!",
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "linear-gradient(to right, #ff9090, #d11515)",
-        },
-        onClick: function(){} // Callback after click
-      }).showToast();
+    var toastHTMLElement = document.getElementById("incorrecto");
+    var toastElement = new bootstrap.Toast(toastHTMLElement, option)
+    toastElement.show();
 }
