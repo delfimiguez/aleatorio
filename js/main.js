@@ -238,7 +238,7 @@ let toastCorrecto = document.createElement("div");
 toastCorrecto.innerHTML = `<div id="correcto" class="toast align-items-center text-bg-success border-0 position-fixed end-0" style="width: 100%;" role="alert" aria-live="assertive" aria-atomic="true">
 <div class="d-flex">
   <div class="toast-body">
-    ¡Tu respuesta fue correcta! - Llevas ${contadorCorrectos} respuestas correctas
+    ¡Tu respuesta fue correcta! 
   </div>
   <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 </div>
@@ -249,7 +249,7 @@ let toastIncorrecto = document.createElement("div");
 toastIncorrecto.innerHTML = `<div id="incorrecto" class="toast align-items-center text-bg-danger border-0 position-fixed end-0 " style="width: 100%; role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
     <div class="toast-body"> 
-      ¡Tu respuesta fue incorrecta! - Llevas ${contadorCorrectos} respuestas correctas
+      ¡Tu respuesta fue incorrecta!
     </div>
     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
   </div>
